@@ -14,8 +14,9 @@ public class SellerController {
     private final SellerService sellerService;
 
     @GetMapping("/towns")
-    public List<Seller> getSellers(){
+    public List<Seller> getTowns() {
         return sellerService.getSellers();
     }
+
 
 }
