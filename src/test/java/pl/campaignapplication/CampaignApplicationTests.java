@@ -1,4 +1,4 @@
-package pl.campaignapplication.CampaignApplication;
+package pl.campaignapplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
