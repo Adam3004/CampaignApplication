@@ -13,8 +13,6 @@ import javax.persistence.Id;
 @Setter
 public class Seller {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String name;
     private String town;
+    private String name;
 }
