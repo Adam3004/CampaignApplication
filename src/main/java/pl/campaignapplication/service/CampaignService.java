@@ -54,15 +54,7 @@ public class CampaignService {
         }
 
 //        keywordsService.addKeyword(word,campaign.getId());
-        session.setCurrentBalance(currentBalance);
-        campaign.setCampaignFunds(currentBalance);
-        previousCamp.setCampaignFunds(currentBalance);
-        previousCamp.setBidAmount(campaign.getBidAmount());
-        previousCamp.setName(campaign.getName());
-        previousCamp.setRadius(campaign.getRadius());
-        previousCamp.setStatus(campaign.getStatus());
-        previousCamp.setTown(campaign.getTown());
-        campaignRrepository.save(previousCamp);
+        updateOldData(previousCamp, campaign, currentBalance);
         String output = "User updated";
         return output;
     }
@@ -70,5 +62,17 @@ public class CampaignService {
     public String deleteCampaign(long id) {
         campaignRrepository.deleteById(id);
         return "Campaign has been deleted";
+    }
+
+    private void updateOldData(Campaign oldCampaign, Campaign newCampaign, int currentBalance) {
+        session.setCurrentBalance(currentBalance);
+        newCampaign.setCampaignFunds(currentBalance);
+        oldCampaign.setCampaignFunds(currentBalance);
+        oldCampaign.setBidAmount(newCampaign.getBidAmount());
+        oldCampaign.setName(newCampaign.getName());
+        oldCampaign.setRadius(newCampaign.getRadius());
+        oldCampaign.setStatus(newCampaign.getStatus());
+        oldCampaign.setTown(newCampaign.getTown());
+        campaignRrepository.save(oldCampaign);
     }
 }
