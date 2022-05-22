@@ -43,4 +43,32 @@ public class CampaignService {
     }
 
 
+    public String updateCampaign(long id, Campaign campaign) {
+        Campaign previousCamp = getSingleCampaign(id);
+        int currentBalance = CampaignFundsCalculator.updateBalance(session.getCurrentBalance(),
+                campaign.getBidAmount() - previousCamp.getBidAmount());
+        try {
+            IsBalanceGood.check(currentBalance);
+        } catch (NegativeBalnceException e) {
+            return e.getLocalizedMessage();
+        }
+
+//        keywordsService.addKeyword(word,campaign.getId());
+        session.setCurrentBalance(currentBalance);
+        campaign.setCampaignFunds(currentBalance);
+        previousCamp.setCampaignFunds(currentBalance);
+        previousCamp.setBidAmount(campaign.getBidAmount());
+        previousCamp.setName(campaign.getName());
+        previousCamp.setRadius(campaign.getRadius());
+        previousCamp.setStatus(campaign.getStatus());
+        previousCamp.setTown(campaign.getTown());
+        campaignRrepository.save(previousCamp);
+        String output = "User updated";
+        return output;
+    }
+
+    public String deleteCampaign(long id) {
+        campaignRrepository.deleteById(id);
+        return "Campaign has been deleted";
+    }
 }
