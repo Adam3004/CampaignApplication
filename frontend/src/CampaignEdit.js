@@ -53,7 +53,9 @@ class CampaignEdit extends Component{
             body: JSON.stringify(item),
         });
         this.props.history.push('/campaigns');
+        window.location.reload(false);
     }
+
 
     render() {
         const {item} = this.state
@@ -67,27 +69,19 @@ class CampaignEdit extends Component{
                         <FormGroup>
                             <Label for="name">Name</Label>
                             <Input type="text" name="name" id="name" value={item.name||''} 
-                            onChange={this.handleChange} autoComplete="name"/>
+                            onChange={this.handleChange} required={true} autoComplete="name"/>
                         </FormGroup>
                         <FormGroup>
                             <Label for="bidAmount">Bid amount</Label>
                             <Input type="number" name="bidAmount" id="bidAmount" value={item.bidAmount||''} 
-                            onChange={this.handleChange} step="1" pattern='>=0' autoComplete="bidAmount"/>
+                            onChange={this.handleChange} step="1" required={true} min="0" pattern='>=0' autoComplete="bidAmount"/>
                         </FormGroup>
-                        {/* <FormGroup>
-                            <Label for="campaignFunds">Campaign funds</Label>
-                            <Input type="text" name="campaignFunds" id="campaignFunds" value={item.campaignFunds||''} 
-                            onChange={this.handleChange} autoComplete="campaignFunds"/>
-                        </FormGroup> */}
                         <FormGroup>
-                            {/* <Label for="status">Status</Label>
-                            <Input type="text" name="status" id="status" value={item.status||''} 
-                            onChange={this.handleChange} autoComplete="status"/> */}
-                            <div class="row">
+                            <div className="row">
                                 <Label for="status">Status</Label>
-                                <select id="status">
-                                    <option value={true}>On</option>
-                                    <option value={false} selected>Off</option>
+                                <select type="text" name="status" id="status" value={item.status||''} onChange={this.handleChange}>
+                                    <option name="status" id="status" value="true">Off</option>
+                                    <option name="status" id="status" value="true">On</option>
                                 </select>
                             </div>
                             {/* <Input type="text" name="status" id="status" value={item.status||''} 
@@ -96,16 +90,16 @@ class CampaignEdit extends Component{
                         <FormGroup>
                             <Label for="town">Town</Label>
                             <Input type="text" name="town" id="town" value={item.town||''} 
-                            onChange={this.handleChange} autoComplete="town"/>
+                            onChange={this.handleChange} required={true} autoComplete="town"/>
                         </FormGroup>
                         <FormGroup>
                             <Label for="radius">Radius</Label>
                             <Input type="number" name="radius" id="radius" value={item.radius||''} 
-                            onChange={this.handleChange} step="1" autoComplete="radius"/>
+                            onChange={this.handleChange} step="1" required={true} min="0" autoComplete="radius"/>
                         </FormGroup>
                         <FormGroup>
                             <Button color="primary" type="submit">Save</Button>{' '}
-                            <Button color="secondary" tag={Link} to="/campaigns">Cancel</Button>
+                            <Button color="secondary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to="/campaigns">Cancel</Link></Button>
                         </FormGroup>
                     </Form>
                 </Container>
