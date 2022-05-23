@@ -8,3 +8,4 @@ Application using to to create, edit or delete campaigns for products
 * CSS
 ## Presuppositional
 Campaign fund is a variable in each campaign and means how much money was on Emerald account after paying for that one. 
+Radius may equals 0. It means the campaign is only in the town.
