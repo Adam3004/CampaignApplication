@@ -71,18 +71,27 @@ class CampaignEdit extends Component{
                         </FormGroup>
                         <FormGroup>
                             <Label for="bidAmount">Bid amount</Label>
-                            <Input type="text" name="bidAmount" id="bidAmount" value={item.bidAmount||''} 
-                            onChange={this.handleChange} autoComplete="bidAmount"/>
+                            <Input type="number" name="bidAmount" id="bidAmount" value={item.bidAmount||''} 
+                            onChange={this.handleChange} step="1" pattern='>=0' autoComplete="bidAmount"/>
                         </FormGroup>
-                        <FormGroup>
+                        {/* <FormGroup>
                             <Label for="campaignFunds">Campaign funds</Label>
                             <Input type="text" name="campaignFunds" id="campaignFunds" value={item.campaignFunds||''} 
                             onChange={this.handleChange} autoComplete="campaignFunds"/>
-                        </FormGroup>
+                        </FormGroup> */}
                         <FormGroup>
-                            <Label for="status">Status</Label>
+                            {/* <Label for="status">Status</Label>
                             <Input type="text" name="status" id="status" value={item.status||''} 
-                            onChange={this.handleChange} autoComplete="status"/>
+                            onChange={this.handleChange} autoComplete="status"/> */}
+                            <div class="row">
+                                <Label for="status">Status</Label>
+                                <select id="status">
+                                    <option value={true}>On</option>
+                                    <option value={false} selected>Off</option>
+                                </select>
+                            </div>
+                            {/* <Input type="text" name="status" id="status" value={item.status||''} 
+                            onChange={this.handleChange} autoComplete="status"/> */}
                         </FormGroup>
                         <FormGroup>
                             <Label for="town">Town</Label>
@@ -91,8 +100,8 @@ class CampaignEdit extends Component{
                         </FormGroup>
                         <FormGroup>
                             <Label for="radius">Radius</Label>
-                            <Input type="text" name="radius" id="radius" value={item.radius||''} 
-                            onChange={this.handleChange} autoComplete="radius"/>
+                            <Input type="number" name="radius" id="radius" value={item.radius||''} 
+                            onChange={this.handleChange} step="1" autoComplete="radius"/>
                         </FormGroup>
                         <FormGroup>
                             <Button color="primary" type="submit">Save</Button>{' '}

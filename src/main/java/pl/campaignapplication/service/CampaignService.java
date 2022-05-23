@@ -3,12 +3,11 @@ package pl.campaignapplication.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.campaignapplication.campaign.Campaign;
-import pl.campaignapplication.exception.NegativeBalnceException;
-import pl.campaignapplication.exceptionMethod.IsBalanceGood;
-import pl.campaignapplication.keyword.Keyword;
 import pl.campaignapplication.repository.CampaignRrepository;
 import pl.campaignapplication.session.Session;
+import pl.campaignapplication.tools.CampaignDataUpdater;
 import pl.campaignapplication.tools.CampaignFundsCalculator;
+import pl.campaignapplication.tools.IsCampaignCorrect;
 
 import java.util.List;
 
@@ -29,17 +28,16 @@ public class CampaignService {
 
     public String addCampaign(Campaign campaign, String word) {
         int currentBalance = CampaignFundsCalculator.updateBalance(session.getCurrentBalance(), campaign.getBidAmount());
-        try {
-            IsBalanceGood.check(currentBalance);
-        } catch (NegativeBalnceException e) {
-            return e.getLocalizedMessage();
-        }
+        if (IsCampaignCorrect.checkNumbers(currentBalance, campaign.getRadius(), campaign.getBidAmount())) {
 //        keywordsService.addKeyword(word,campaign.getId());
-        session.setCurrentBalance(currentBalance);
-        campaign.setCampaignFunds(currentBalance);
-        campaignRrepository.save(campaign);
-        String output = "Your updated balance equals: " + Integer.toString(currentBalance);
-        return output;
+            session.setCurrentBalance(currentBalance);
+            campaign.setCampaignFunds(currentBalance);
+            campaignRrepository.save(campaign);
+            String output = "Your updated balance equals: " + Integer.toString(currentBalance);
+            return output;
+        } else {
+            return "Wrong number";
+        }
     }
 
 
@@ -47,16 +45,14 @@ public class CampaignService {
         Campaign previousCamp = getSingleCampaign(id);
         int currentBalance = CampaignFundsCalculator.updateBalance(session.getCurrentBalance(),
                 campaign.getBidAmount() - previousCamp.getBidAmount());
-        try {
-            IsBalanceGood.check(currentBalance);
-        } catch (NegativeBalnceException e) {
-            return e.getLocalizedMessage();
-        }
-
+        if (IsCampaignCorrect.checkNumbers(currentBalance, campaign.getRadius(), campaign.getBidAmount())) {
 //        keywordsService.addKeyword(word,campaign.getId());
-        updateOldData(previousCamp, campaign, currentBalance);
-        String output = "User updated";
-        return output;
+            previousCamp = CampaignDataUpdater.updateOldData(previousCamp, campaign, currentBalance, session);
+            campaignRrepository.save(previousCamp);
+            return "User updated";
+        } else {
+            return "Wrong number";
+        }
     }
 
     public String deleteCampaign(long id) {
@@ -64,15 +60,4 @@ public class CampaignService {
         return "Campaign has been deleted";
     }
 
-    private void updateOldData(Campaign oldCampaign, Campaign newCampaign, int currentBalance) {
-        session.setCurrentBalance(currentBalance);
-        newCampaign.setCampaignFunds(currentBalance);
-        oldCampaign.setCampaignFunds(currentBalance);
-        oldCampaign.setBidAmount(newCampaign.getBidAmount());
-        oldCampaign.setName(newCampaign.getName());
-        oldCampaign.setRadius(newCampaign.getRadius());
-        oldCampaign.setStatus(newCampaign.getStatus());
-        oldCampaign.setTown(newCampaign.getTown());
-        campaignRrepository.save(oldCampaign);
-    }
 }
