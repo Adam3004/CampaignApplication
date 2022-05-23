@@ -48,7 +48,7 @@ class CampaignList extends Component {
                 <td> {campaign.keywords} </td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/campaigns/"+campaign.id}>Edit</Button>
+                        <Button size="sm" color="primary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/"+campaign.id}>Edit</Link></Button>
                         <Button size="sm" color="danger" onClick={() => this.remove(campaign.id)}>Delete</Button>
                     </ButtonGroup>
                 </td>
@@ -61,7 +61,7 @@ class CampaignList extends Component {
                 <AppNavbar/>
                 <Container fluid>
                     <div className="float-right">
-                        <Button color="success" tag={Link} to="/campaigns/new">Add Campaign</Button>
+                        <Button color="success" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to="/campaigns/new">Add Campaign</Link></Button>
                     </div>
                     <h3>Campaigns</h3>
                     <Table className="mt-4">
