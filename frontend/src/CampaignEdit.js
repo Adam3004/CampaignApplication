@@ -10,7 +10,7 @@ class CampaignEdit extends Component{
         bidAmount:'',
         campaignFunds:'',
         status:'',
-        town:'',
+        town:'Cracow',
         radius:'',
         keywords:''
     };
@@ -54,12 +54,14 @@ class CampaignEdit extends Component{
         });
         this.props.history.push('/campaigns');
         window.location.reload(false);
+        
     }
 
 
     render() {
         const {item} = this.state
         const title = <h2>{item.id ? 'Edit campaign' : 'Add campaign'}</h2>;
+        const listOfTowns = ["Cracow", "Warsaw", "Gdansk", "Poznan", "Wroclaw", "Kielce", "Rzeszow", "Zakopane", "Szczecin"]
         
         return <div>
             <AppNavbar />
@@ -84,13 +86,20 @@ class CampaignEdit extends Component{
                                     <option name="status" id="status" value="true">On</option>
                                 </select>
                             </div>
-                            {/* <Input type="text" name="status" id="status" value={item.status||''} 
-                            onChange={this.handleChange} autoComplete="status"/> */}
                         </FormGroup>
                         <FormGroup>
                             <Label for="town">Town</Label>
-                            <Input type="text" name="town" id="town" value={item.town||''} 
-                            onChange={this.handleChange} required={true} autoComplete="town"/>
+                            {/* <Input type="text" name="town" id="town" value={item.town||''} 
+                            onChange={this.handleChange} required={true} autoComplete="town"/> */}
+                            <div className="row">
+                                <select type="text" name="town" id="town" value={item.town||''} defaultValue={this.state.item.town} onChange={this.handleChange}>
+                                    {/* {options.map((option) => (
+                                    <option value={option.value}>{option.label}</option> */}
+                                    {listOfTowns.map((town) => (
+                                    <option name="town" id="town" value={town}>{town}</option>
+                                    ))}
+                                </select>
+                            </div>
                         </FormGroup>
                         <FormGroup>
                             <Label for="radius">Radius</Label>
