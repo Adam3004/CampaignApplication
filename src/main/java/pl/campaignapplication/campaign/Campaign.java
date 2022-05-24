@@ -26,8 +26,7 @@ public class Campaign {
     private List<Keyword> keyWords;
 
 
-    //    dopisałem ten getter osobno ponieważ prawdopodobnie bimbliotego lombok nie obsługuje getteró dla booleanów, a
-    //    był mi potrzebny
+    // I wrote this getter manually because I needed it, but lombok probably dont support it (I had a problems with that)
     public boolean getStatus() {
         return status;
     }

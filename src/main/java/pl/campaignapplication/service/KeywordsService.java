@@ -55,7 +55,6 @@ public class KeywordsService {
 
     public void deleteKeywords(long campaignId) {
         List<Long> listOfId = findKeywordsToRemoval(campaignId);
-        System.out.println(listOfId);
         keywordsRepository.deleteAllById(listOfId);
     }
 

@@ -71,7 +71,7 @@ public class Controller {
         return campaignService.deleteCampaign(id);
     }
 
-    //    additional function
+    //    additional controller
     @GetMapping("/balance")
     public int getBalance() {
         return campaignService.getBalance();

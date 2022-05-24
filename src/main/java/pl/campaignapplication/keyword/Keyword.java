@@ -14,7 +14,7 @@ import javax.persistence.Id;
 public class Keyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    long campaignId;
-    String word;
+    private long id;
+    private long campaignId;
+    private String word;
 }
