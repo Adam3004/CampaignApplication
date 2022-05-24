@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
-import { Typeahead } from 'react-bootstrap-typeahead'; 
 
 class CampaignEdit extends Component{
 
@@ -57,7 +56,6 @@ class CampaignEdit extends Component{
     render() {
         const {item} = this.state
         const title = <h2>{item.id ? 'Edit keyword' : 'Add keyword'}</h2>;
-        var Typeahead = require('react-bootstrap-typeahead').Typeahead; 
         return <div>
             <AppNavbar />
                 <Container>
