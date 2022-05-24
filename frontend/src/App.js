@@ -15,9 +15,9 @@ class App extends Component {
         <Switch>
           <Route path='/' exact={true} component={Home}/>
           <Route path='/campaigns' exact={true} component={CampaignList}/>
+          <Route path={'/campaigns/keyword/:id/:campaignId'} component={KeywordEdit}></Route>
           <Route path='/campaigns/keywords/:id' component={KeywordList}></Route>
-          <Route path={'/campaigns/keyword/:id'} component={KeywordEdit}></Route>
-          <Route path='/campaigns/:id' component={CampaignEdit}/>
+          <Route path='/campaigns/:id' exact={true} component={CampaignEdit}/>
         </Switch>
       </Router>
     )
