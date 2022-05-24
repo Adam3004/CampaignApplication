@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
+import { Typeahead } from 'react-bootstrap-typeahead'; 
 
 class CampaignEdit extends Component{
 
@@ -19,6 +20,7 @@ class CampaignEdit extends Component{
     }
 
     async componentDidMount(){
+        console.log(this.props.match.params);
         if (this.props.match.params.id !== 'new'){
             const keyword = await (await fetch(`/campaigns/keyword/${this.props.match.params.id}`)).json();
             this.setState({item: keyword});
@@ -37,8 +39,8 @@ class CampaignEdit extends Component{
     async handleSubmit(event) {
         event.preventDefault();
         const {item} = this.state;
-
-        await fetch("/campaigns/keyword" + (item.id ? "/" + item.id : ''), {
+        console.log(item.id);
+        await fetch("/campaigns/keyword" + (item.id ? "/" + this.props.match.params.id : "/" + this.props.match.params.campaignId), {
             method: (item.id) ? "PUT" : "POST",
             headers: {
                 'Accept': 'application/json',
@@ -55,7 +57,7 @@ class CampaignEdit extends Component{
     render() {
         const {item} = this.state
         const title = <h2>{item.id ? 'Edit keyword' : 'Add keyword'}</h2>;
-        
+        var Typeahead = require('react-bootstrap-typeahead').Typeahead; 
         return <div>
             <AppNavbar />
                 <Container>
@@ -63,8 +65,8 @@ class CampaignEdit extends Component{
                     <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <Label for="word">Word</Label>
-                            <Input type="text" name="word" id="word" value={item.word||''} 
-                            onChange={this.handleChange} required={true} autoComplete="word"/>
+                                <Input type="text" name="word" id="word" value={item.word||''} 
+                                onChange={this.handleChange} required={true} autoComplete="word"/>
                         </FormGroup>
                         <FormGroup>
                             <Button color="primary" type="submit">Save</Button>{' '}

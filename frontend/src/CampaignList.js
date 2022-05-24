@@ -15,6 +15,7 @@ class CampaignList extends Component {
         fetch('/campaigns')
             .then(response=>response.json())
             .then(data=>this.setState({campaigns: data}))
+            
     }
 
     async remove(id){
@@ -48,7 +49,12 @@ class CampaignList extends Component {
                 <td style={{whiteSpace: 'nowrap'}}> {campaign.town}</td>
                 <td style={{whiteSpace: 'nowrap'}}> {campaign.radius}</td>
                 {/* <td style={{whiteSpace: 'nowrap'}}> {campaign.keyWords.map(keyWord => <div className='row'>{keyWord.word}</div>)} </td> */}
-                <td><Button size="sm" color='success' onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/keywords/"+campaign.id}>Show keywords</Link></Button></td>
+                <td>
+                    <ButtonGroup>
+                        <Button color="success" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/keyword/new/"+campaign.id}>Add</Link></Button>
+                        <Button size="sm" color='success' onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/keywords/"+campaign.id}>Show keywords</Link></Button>
+                    </ButtonGroup>
+                </td>
                 <td>
                     <ButtonGroup>
                         <Button size="sm" color="primary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/"+campaign.id}>Edit</Link></Button>

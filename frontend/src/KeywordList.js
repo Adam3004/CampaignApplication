@@ -43,10 +43,10 @@ class KeywordList extends Component {
             return <tr key={keyWord.id}>
                 <td style={{whiteSpace: 'nowrap'}}> {keyWord.word}</td>
                 <td>
-                    <ButtonGroup>
-                        <Button size="sm" color="primary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/keyword/"+keyWord.id}>Edit</Link></Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(keyWord.id)}>Delete</Button>
-                    </ButtonGroup>
+                <ButtonGroup>
+                    <Button size="sm" color="primary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/keyword/"+keyWord.id +"/0"}>Edit</Link></Button>
+                    <Button size="sm" color="danger" onClick={() => this.remove(keyWord.id)}>Delete</Button>
+                </ButtonGroup>
                 </td>
             </tr>
         });
@@ -57,7 +57,10 @@ class KeywordList extends Component {
                 <AppNavbar/>
                 <Container fluid>
                     <div className="float-right">
-                    <Button color="secondary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to="/campaigns">Back</Link></Button>
+                        <ButtonGroup>
+                            <Button color="secondary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to="/campaigns">Back</Link></Button>
+                            {/* <Button color="success" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={`/campaigns/keyword/${campaignId}`}>Add Keyword</Link></Button> */}
+                        </ButtonGroup>
                     </div>
                     <h3>Keywords</h3>
                     <Table className="mt-4">
