@@ -45,7 +45,7 @@ class CampaignList extends Component {
                 <td style={{whiteSpace: 'nowrap'}}> {campaign.status ? 'on': 'off'}</td>
                 <td style={{whiteSpace: 'nowrap'}}> {campaign.town}</td>
                 <td style={{whiteSpace: 'nowrap'}}> {campaign.radius}</td>
-                <td> {campaign.keywords} </td>
+                <td style={{whiteSpace: 'nowrap'}}> {campaign.keyWords.map(keyWord => <div className='row'>{keyWord.word}</div>)} </td>
                 <td>
                     <ButtonGroup>
                         <Button size="sm" color="primary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/"+campaign.id}>Edit</Link></Button>
