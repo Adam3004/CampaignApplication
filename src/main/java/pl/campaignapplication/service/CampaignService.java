@@ -55,6 +55,8 @@ public class CampaignService {
     }
 
     public String deleteCampaign(long id) {
+//        id is correct, bec frontend guard it
+        session.setCurrentBalance(session.getCurrentBalance() + getSingleCampaign(id).getBidAmount());
         campaignRrepository.deleteById(id);
         return "Campaign has been deleted";
     }
