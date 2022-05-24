@@ -13,14 +13,14 @@ Application using to create, edit or delete campaigns for products
 * List of towns is prepared in CampaignApplication/frontend/src/CampaignEdit.js in render.
 * If we edit or delete bid amount our bilance will be automatically changed. 
 ## How to run application?
-* Open project in intelij (maven dependencies should be downloaded automatically)
-* Open console in CampaignApplication folder and use those commands:
+* Open project in intelij (maven dependencies should be downloaded automatically unless do it manually by putting the button) (probably not necessary step)
+* Open console in CampaignApplication folder and use this command:
 ```
 $ mvn spring-boot:run
+```
+* Open console in folder CampaignApplication/frontend and run those commands:
+```
 $ npm install --save bootstrap@5.1 react-cookie@4.1.1 react-router-dom@5.3.0 reactstrap@8.10.0
-```
-* Open folder CampaignApplication/frontend and run this command:
-```
 $ npm start
 ```
 * Window in your browser should be opened automatically after few seconds (Google Chrome prefered)
