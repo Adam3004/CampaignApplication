@@ -15,4 +15,10 @@ public class CampaignDataUpdater {
         oldCampaign.setTown(newCampaign.getTown());
         return oldCampaign;
     }
+
+    public static Campaign addNewData(Campaign campaign, int currentBalance, Session session) {
+        session.setCurrentBalance(currentBalance);
+        campaign.setCampaignFunds(currentBalance);
+        return campaign;
+    }
 }

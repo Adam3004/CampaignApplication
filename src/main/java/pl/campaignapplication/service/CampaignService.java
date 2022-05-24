@@ -14,26 +14,25 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CampaignService {
-    private final CampaignRepository campaignRrepository;
-    private Session session = new Session();
+    private final CampaignRepository campaignRepository;
+    private final int startingMoney = 10000;
+    private Session session = new Session(startingMoney);
+    private final KeywordsService keywordsService;
 
     public List<Campaign> getCampaigns() {
-        return campaignRrepository.findAll();
+        return campaignRepository.findAll();
     }
 
     public Campaign getSingleCampaign(long id) {
-        return campaignRrepository.findById(id).orElseThrow(RuntimeException::new);
+        return campaignRepository.findById(id).orElseThrow(NullPointerException::new);
     }
 
     public String addCampaign(Campaign campaign) {
         int currentBalance = CampaignFundsCalculator.updateBalance(session.getCurrentBalance(), campaign.getBidAmount());
         if (IsCampaignCorrect.checkNumbers(currentBalance, campaign.getRadius(), campaign.getBidAmount())) {
-//        keywordsService.addKeyword(word,campaign.getId());
-            session.setCurrentBalance(currentBalance);
-            campaign.setCampaignFunds(currentBalance);
-            campaignRrepository.save(campaign);
-            String output = "Your updated balance equals: " + Integer.toString(currentBalance);
-            return output;
+            campaign = CampaignDataUpdater.addNewData(campaign, currentBalance, session);
+            campaignRepository.save(campaign);
+            return "Your updated balance equals: " + Integer.toString(currentBalance);
         } else {
             return "Wrong number";
         }
@@ -45,9 +44,8 @@ public class CampaignService {
         int currentBalance = CampaignFundsCalculator.updateBalance(session.getCurrentBalance(),
                 campaign.getBidAmount() - previousCamp.getBidAmount());
         if (IsCampaignCorrect.checkNumbers(currentBalance, campaign.getRadius(), campaign.getBidAmount())) {
-//        keywordsService.addKeyword(word,campaign.getId());
             previousCamp = CampaignDataUpdater.updateOldData(previousCamp, campaign, currentBalance, session);
-            campaignRrepository.save(previousCamp);
+            campaignRepository.save(previousCamp);
             return "User updated";
         } else {
             return "Wrong number";
@@ -57,11 +55,12 @@ public class CampaignService {
     public String deleteCampaign(long id) {
 //        id is correct, bec frontend guard it
         session.setCurrentBalance(session.getCurrentBalance() + getSingleCampaign(id).getBidAmount());
-        campaignRrepository.deleteById(id);
+        keywordsService.deleteKeywords(id);
+        campaignRepository.deleteById(id);
         return "Campaign has been deleted";
     }
 
-    public int getBilance() {
+    public int getBalance() {
         return session.getCurrentBalance();
     }
 }
