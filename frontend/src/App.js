@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CampaignEdit from './CampaignEdit';
 import CampaignList from './CampaignList';
 import KeywordList from './KeywordList';
+import KeywordEdit from './KeywordEdit';
 
 
 class App extends Component {
@@ -15,7 +16,8 @@ class App extends Component {
           <Route path='/' exact={true} component={Home}/>
           <Route path='/campaigns' exact={true} component={CampaignList}/>
           <Route path='/campaigns/keywords/:id' component={KeywordList}></Route>
-          <Route path='/campaigns/:id,name' component={CampaignEdit}/>
+          <Route path={'/campaigns/keyword/:id'} component={KeywordEdit}></Route>
+          <Route path='/campaigns/:id' component={CampaignEdit}/>
         </Switch>
       </Router>
     )

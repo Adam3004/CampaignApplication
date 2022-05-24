@@ -8,28 +8,29 @@ class KeywordList extends Component {
     constructor(props) {
         super(props);
         this.state = {keywords: []};
-        // this.remove = this.remove.bind(this);
+        this.remove = this.remove.bind(this);
     }
 
     componentDidMount(){
         fetch(window.location.href)
             .then(response=>response.json())
             .then(data=>this.setState({keywords: data}))
-        console.log(this.props.id)
     }
 
-    // async remove(id){
-    //     await fetch(`/campaigns/${id}`, {
-    //     method: 'DELETE',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //             }
-    //     }).then(() => {
-    //         let updateCampaigns = [...this.state.campaigns].filter(i=>i.id !==id);
-    //         this.setState({campaigns: updateCampaigns});
-    //     });
-    // }
+    async remove(id){
+        await fetch(`/campaigns/keyword/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+                }
+        }).then(() => {
+            let updateKeywords = [...this.state.keywords].filter(i=>i.id !==id);
+            this.setState({campaigns: updateKeywords});
+        });
+        window.location.reload(false);
+        
+    }
 
     render() {
         const {keywords, isLoading} = this.state;
@@ -41,12 +42,12 @@ class KeywordList extends Component {
         const keywordList = Object.values(keywords).map(keyWord => {
             return <tr key={keyWord.id}>
                 <td style={{whiteSpace: 'nowrap'}}> {keyWord.word}</td>
-                {/* <td>
+                <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/"+campaign.id}>Edit</Link></Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(campaign.id)}>Delete</Button>
+                        <Button size="sm" color="primary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/keyword/"+keyWord.id}>Edit</Link></Button>
+                        <Button size="sm" color="danger" onClick={() => this.remove(keyWord.id)}>Delete</Button>
                     </ButtonGroup>
-                </td> */}
+                </td>
             </tr>
         });
 
