@@ -61,4 +61,7 @@ public class CampaignService {
         return "Campaign has been deleted";
     }
 
+    public int getBilance() {
+        return session.getCurrentBalance();
+    }
 }

@@ -7,7 +7,7 @@ class CampaignList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {campaigns: []};
+        this.state = {campaigns: [], currentBalance: 0};
         this.remove = this.remove.bind(this);
     }
 
@@ -15,7 +15,9 @@ class CampaignList extends Component {
         fetch('/campaigns')
             .then(response=>response.json())
             .then(data=>this.setState({campaigns: data}))
-            
+        fetch('/campaigns/balance')
+            .then(response => response.json())
+            .then(data => this.setState({currentBalance: data}))
     }
 
     async remove(id){
@@ -34,7 +36,7 @@ class CampaignList extends Component {
 
 
     render() {
-        const {campaigns, isLoading} = this.state;
+        const {currentBalance, campaigns, isLoading} = this.state;
 
         if(isLoading){
             return <p>Loading...</p>;
@@ -52,7 +54,7 @@ class CampaignList extends Component {
                 <td>
                     <ButtonGroup>
                         <Button size="sm" color="success" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/keyword/new/"+campaign.id}>Add</Link></Button>
-                        <Button size="sm" color='primary' onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/keywords/"+campaign.id}>Show keywords</Link></Button>
+                        <Button size="sm" color='primary' onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/keywords/"+campaign.id}>Show</Link></Button>
                     </ButtonGroup>
                 </td>
                 <td>
@@ -73,6 +75,10 @@ class CampaignList extends Component {
                         <Button color="success" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to="/campaigns/new">Add Campaign</Link></Button>
                     </div>
                     <h3>Campaigns</h3>
+                    <div className="float-right">
+                        <h4>Current balance: {currentBalance}</h4>
+                        
+                    </div>
                     <Table className="mt-4">
                         <thead>
                             <tr>
