@@ -59,7 +59,6 @@ class KeywordList extends Component {
                     <div className="float-right">
                         <ButtonGroup>
                             <Button color="secondary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to="/campaigns">Back</Link></Button>
-                            {/* <Button color="success" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={`/campaigns/keyword/${campaignId}`}>Add Keyword</Link></Button> */}
                         </ButtonGroup>
                     </div>
                     <h3>Keywords</h3>

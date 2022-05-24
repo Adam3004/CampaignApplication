@@ -89,12 +89,8 @@ class CampaignEdit extends Component{
                         </FormGroup>
                         <FormGroup>
                             <Label for="town">Town</Label>
-                            {/* <Input type="text" name="town" id="town" value={item.town||''} 
-                            onChange={this.handleChange} required={true} autoComplete="town"/> */}
                             <div className="row">
                                 <select type="text" name="town" id="town" value={item.town||''} defaultValue={this.state.item.town} onChange={this.handleChange}>
-                                    {/* {options.map((option) => (
-                                    <option value={option.value}>{option.label}</option> */}
                                     {listOfTowns.map((town) => (
                                     <option name="town" id="town" value={town}>{town}</option>
                                     ))}
