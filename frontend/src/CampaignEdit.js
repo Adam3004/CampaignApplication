@@ -82,8 +82,8 @@ class CampaignEdit extends Component{
                             <div className="row">
                                 <Label for="status">Status</Label>
                                 <select type="text" name="status" id="status" value={item.status||''} onChange={this.handleChange}>
-                                    <option name="status" id="status" value="true">Off</option>
-                                    <option name="status" id="status" value="true">On</option>
+                                    <option name="status" id="status" value={false}>Off</option>
+                                    <option name="status" id="status" value={true}>On</option>
                                 </select>
                             </div>
                         </FormGroup>

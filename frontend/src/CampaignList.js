@@ -30,6 +30,8 @@ class CampaignList extends Component {
         });
     }
 
+
+
     render() {
         const {campaigns, isLoading} = this.state;
 
@@ -45,7 +47,8 @@ class CampaignList extends Component {
                 <td style={{whiteSpace: 'nowrap'}}> {campaign.status ? 'on': 'off'}</td>
                 <td style={{whiteSpace: 'nowrap'}}> {campaign.town}</td>
                 <td style={{whiteSpace: 'nowrap'}}> {campaign.radius}</td>
-                <td style={{whiteSpace: 'nowrap'}}> {campaign.keyWords.map(keyWord => <div className='row'>{keyWord.word}</div>)} </td>
+                {/* <td style={{whiteSpace: 'nowrap'}}> {campaign.keyWords.map(keyWord => <div className='row'>{keyWord.word}</div>)} </td> */}
+                <td><Button size="sm" color='success' onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/keywords/"+campaign.id}>Show keywords</Link></Button></td>
                 <td>
                     <ButtonGroup>
                         <Button size="sm" color="primary" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to={"/campaigns/"+campaign.id}>Edit</Link></Button>
