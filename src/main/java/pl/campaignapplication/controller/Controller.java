@@ -6,6 +6,7 @@ import pl.campaignapplication.campaign.Campaign;
 import pl.campaignapplication.keyword.Keyword;
 import pl.campaignapplication.service.CampaignService;
 import pl.campaignapplication.service.KeywordsService;
+import pl.campaignapplication.session.Session;
 
 import java.util.List;
 
@@ -71,4 +72,9 @@ public class Controller {
         return campaignService.deleteCampaign(id);
     }
 
+    //    additional function
+    @GetMapping("/balance")
+    public int getBilance() {
+        return campaignService.getBilance();
+    }
 }
