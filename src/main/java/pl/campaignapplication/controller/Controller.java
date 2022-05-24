@@ -7,6 +7,7 @@ import pl.campaignapplication.keyword.Keyword;
 import pl.campaignapplication.service.CampaignService;
 import pl.campaignapplication.service.KeywordsService;
 
+import java.security.Key;
 import java.util.List;
 
 @RestController
@@ -17,14 +18,28 @@ public class Controller {
     private final KeywordsService keywordsService;
 
     //stworzyłem tylko jeden kontorler dla obu service, ponieważ nie dałem rady stworzyć drugiego, aby działał jak należy
-    @GetMapping("/keywords/{id}")
-    public List<Keyword> getCampaignKeywords(@PathVariable("id") long id){
-        return keywordsService.getCampaignKeywords(id);
+    @GetMapping("/keywords/{campaignId}")
+    public List<Keyword> getCampaignKeywords(@PathVariable("campaignId") long campaignId){
+        return keywordsService.getCampaignKeywords(campaignId);
+    }
+    @GetMapping("/keyword/{id}")
+    public Keyword getSingleKeyword(@PathVariable("id") long id){
+        return keywordsService.getSingleKeyword(id);
     }
 
-    @PostMapping("/keywords/{campaignId}")
+    @PostMapping("/keyword/{campaignId}")
     public String addCampaignKeyword(@PathVariable("campaignId") long campaignId, @RequestBody Keyword keyword){
         return keywordsService.addCampaignKeyword(campaignId, keyword);
+    }
+
+    @PutMapping("/keyword/{id}")
+    public Keyword updateKeyword(@PathVariable("id") long id, @RequestBody Keyword keyword){
+        return keywordsService.updateKeyword(id, keyword);
+    }
+
+    @DeleteMapping("/keyword/{id}")
+    public String deleteKeyword(@PathVariable("id") long id){
+        return keywordsService.deleteKeyword(id);
     }
 
     @GetMapping
