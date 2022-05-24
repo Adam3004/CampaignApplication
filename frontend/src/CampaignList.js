@@ -74,11 +74,10 @@ class CampaignList extends Component {
                     <div className="float-right">
                         <Button color="success" onClick={() => window.location.reload(false)}><Link style={{ color: '#FFF' }} to="/campaigns/new">Add Campaign</Link></Button>
                     </div>
-                    <h3>Campaigns</h3>
                     <div className="float-right">
-                        <h4>Current balance: {currentBalance}</h4>
-                        
+                        <h4> Current balance: {currentBalance} </h4>
                     </div>
+                    <h3>Campaigns</h3>
                     <Table className="mt-4">
                         <thead>
                             <tr>

@@ -13,14 +13,6 @@ import java.util.stream.Collectors;
 public class KeywordsService {
     private final KeywordsRepository keywordsRepository;
 
-//    public void addKeyword(String word, long campaignId) {
-//        Keyword keyword = new Keyword();
-//        keyword.setId(0);
-//        keyword.setWord(word);
-//        keyword.setCampaignId(campaignId);
-//        keywordsRepository.save(keyword);
-//    }
-
     public List<Keyword> getCampaignKeywords(long campaignId) {
         List<Keyword> keywords = keywordsRepository.findAll();
         List<Keyword> keywordsOutput = keywords
@@ -31,10 +23,14 @@ public class KeywordsService {
     }
 
     public String addCampaignKeyword(long campaignId, Keyword keyword) {
-        keyword.setCampaignId(campaignId);
-//        nie musze sprawdzać czy takie id istnieje, bo zawsze będzie przekazywane już istniejące id
-        keywordsRepository.save(keyword);
-        return "added";
+        try {
+            keyword.setCampaignId(campaignId);
+            //        id is correct, bec frontend guard it
+            keywordsRepository.save(keyword);
+            return "added";
+        } catch (Exception e) {
+            return "something went wrong";
+        }
     }
 
     public Keyword getSingleKeyword(long id) {
@@ -54,5 +50,21 @@ public class KeywordsService {
             return "Deleted";
         }
         return "Cannot delete last element";
+    }
+
+
+    public void deleteKeywords(long campaignId) {
+        List<Long> listOfId = findKeywordsToRemoval(campaignId);
+        System.out.println(listOfId);
+        keywordsRepository.deleteAllById(listOfId);
+    }
+
+    private List<Long> findKeywordsToRemoval(long campaignId) {
+        List<Keyword> CampaignKeywords = getCampaignKeywords(campaignId);
+        List<Long> listOfId = CampaignKeywords
+                .stream()
+                .map(keyword -> keyword.getId())
+                .collect(Collectors.toList());
+        return listOfId;
     }
 }

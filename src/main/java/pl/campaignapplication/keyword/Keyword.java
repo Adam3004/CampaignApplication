@@ -1,6 +1,5 @@
 package pl.campaignapplication.keyword;
 
-
 import lombok.Getter;
 import lombok.Setter;
 

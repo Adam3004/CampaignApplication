@@ -1,12 +1,13 @@
 package pl.campaignapplication.session;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 import lombok.Setter;
 
-@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Session {
-    private int currentBalance = 10000;
+    private int currentBalance;
 }

@@ -21,13 +21,14 @@ public class Campaign {
     private String town;
     private int radius;
 
-//    dopisałem ten getter osobno ponieważ prawdopodobnie bimbliotego lombok nie obsługuje getteró dla booleanów, a był
-//    mi potrzebny
-    public boolean getStatus(){
-        return status;
-    }
-
     @OneToMany
     @JoinColumn(name = "campaignId")
     private List<Keyword> keyWords;
+
+
+    //    dopisałem ten getter osobno ponieważ prawdopodobnie bimbliotego lombok nie obsługuje getteró dla booleanów, a
+    //    był mi potrzebny
+    public boolean getStatus() {
+        return status;
+    }
 }
