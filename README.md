@@ -1,5 +1,6 @@
 # CampaignApplication
-Application using to create, edit or delete campaigns for products
+Application using to create, edit or delete campaigns for products (CRUD app). I wrote this app without any knowledge of frontend. It was task for interview so I decided to do my best and in five days i was trying to learn html, css, nodejs and react.
+Eidt 1: After few months of expierience with frontend I know I could do it better and easier but still it was really interesting challenge.
 ## Technologies
 * Java 11
 * Node.js
